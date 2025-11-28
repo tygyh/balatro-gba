@@ -117,7 +117,7 @@ static uint rng_seed = 0;
 
 static uint timer = 0; // This might already exist in libtonc but idk so i'm just making my own
 static int game_speed = 1; // BY DEFAULT IS SET TO 1, but if changed to 2 or more, should speed up all (or most) of the game aspects that should be sped up by speed, as in the original game.
-static int background = 0;
+static enum BackgroundId background = BG_ID_NONE;
 
 static StateInfo state_info[] = 
 {
@@ -886,7 +886,7 @@ void bg_copy_current_item_to_top_left_panel()
     main_bg_se_copy_rect(TOP_LEFT_ITEM_SRC_RECT, TOP_LEFT_PANEL_POINT);
 }
 
-void change_background(int id)
+void change_background(enum BackgroundId id)
 {
     if (background == id)
     {
