@@ -850,11 +850,11 @@ void bg_copy_current_item_to_top_left_panel()
     main_bg_se_copy_rect(TOP_LEFT_ITEM_SRC_RECT, TOP_LEFT_PANEL_POINT);
 }
 
-void change_background(enum BackgroundId id)
+enum BackgroundId change_background(enum BackgroundId id)
 {
     if (background == id)
     {
-        return;
+        return background;
     }
     else if (id == BG_ID_CARD_SELECTING)
     {
@@ -1085,10 +1085,11 @@ void change_background(enum BackgroundId id)
     }
     else
     {
-        return; // Invalid background ID
+        return background; // Invalid background ID
     }
 
     background = id;
+    return background;
 }
 
 void display_temp_score(u32 value)
