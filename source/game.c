@@ -850,13 +850,11 @@ void bg_copy_current_item_to_top_left_panel()
     main_bg_se_copy_rect(TOP_LEFT_ITEM_SRC_RECT, TOP_LEFT_PANEL_POINT);
 }
 
-void change_background(enum BackgroundId id)
+enum BackgroundId change_background(enum BackgroundId id);
+
+static bool setup_background(enum BackgroundId id)
 {
-    if (background == id)
-    {
-        return;
-    }
-    else if (id == BG_ID_CARD_SELECTING)
+    if (id == BG_ID_CARD_SELECTING)
     {
         tte_erase_rect_wrapper(HAND_SIZE_RECT_PLAYING);
         REG_WIN0V = (REG_WIN0V << 8) | 0x80; // Set window 0 top to 128
@@ -1085,10 +1083,26 @@ void change_background(enum BackgroundId id)
     }
     else
     {
-        return; // Invalid background ID
+        return false; // Invalid background ID
+    }
+
+    return true;
+}
+
+enum BackgroundId change_background(enum BackgroundId id)
+{
+    if (background == id)
+    {
+        return background;
+    }
+
+    if (!setup_background(id))
+    {
+        return background; // Invalid background ID
     }
 
     background = id;
+    return background;
 }
 
 void display_temp_score(u32 value)
