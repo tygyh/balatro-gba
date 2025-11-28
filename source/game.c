@@ -850,13 +850,11 @@ void bg_copy_current_item_to_top_left_panel()
     main_bg_se_copy_rect(TOP_LEFT_ITEM_SRC_RECT, TOP_LEFT_PANEL_POINT);
 }
 
-enum BackgroundId change_background(enum BackgroundId id)
+enum BackgroundId change_background(enum BackgroundId id);
+
+static bool setup_background(enum BackgroundId id)
 {
-    if (background == id)
-    {
-        return background;
-    }
-    else if (id == BG_ID_CARD_SELECTING)
+    if (id == BG_ID_CARD_SELECTING)
     {
         tte_erase_rect_wrapper(HAND_SIZE_RECT_PLAYING);
         REG_WIN0V = (REG_WIN0V << 8) | 0x80; // Set window 0 top to 128
@@ -1084,6 +1082,21 @@ enum BackgroundId change_background(enum BackgroundId id)
         memcpy16(&pal_bg_mem[MAIN_MENU_PLAY_BUTTON_OUTLINE_PID], &pal_bg_mem[MAIN_MENU_PLAY_BUTTON_MAIN_COLOR_PID], 1);
     }
     else
+    {
+        return false; // Invalid background ID
+    }
+
+    return true;
+}
+
+enum BackgroundId change_background(enum BackgroundId id)
+{
+    if (background == id)
+    {
+        return background;
+    }
+
+    if (!setup_background(id))
     {
         return background; // Invalid background ID
     }
