@@ -14,13 +14,13 @@
 
 enum BackgroundId
 {
-    BG_ID_NONE = 0,
-    BG_ID_CARD_SELECTING = 1,
-    BG_ID_CARD_PLAYING = 2,
-    BG_ID_ROUND_END = 3,
-    BG_ID_SHOP = 4,
-    BG_ID_BLIND_SELECT = 5,
-    BG_ID_MAIN_MENU = 6
+    BG_ID_NONE,
+    BG_ID_CARD_SELECTING,
+    BG_ID_CARD_PLAYING,
+    BG_ID_ROUND_END,
+    BG_ID_SHOP,
+    BG_ID_BLIND_SELECT,
+    BG_ID_MAIN_MENU
 };
 
 // Input bindings
