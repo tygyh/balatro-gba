@@ -40,10 +40,6 @@
 #define MAIN_MENU_BUTTONS             2
 #define MAIN_MENU_IMPLEMENTED_BUTTONS 1 // Remove this once all buttons are implemented
 
-// TODO: Properly define and use
-#define MENU_POP_OUT_ANIM_FRAMES 20
-#define GAME_OVER_ANIM_FRAMES    15
-
 #define HIGHLIGHT_COLOR   0xFFFF
 #define SHOP_LIGHTS_1_CLR 0xFFFF
 #define SHOP_LIGHTS_2_CLR 0x32BE
@@ -88,6 +84,8 @@
 #define TM_DISP_BLIND_PANEL_START       1
 #define TM_BLIND_SELECT_START           1
 #define TM_END_ANIM_SEQ                 12
+#define TM_MENU_POP_OUT_ANIM            20
+#define TM_GAME_OVER_ANIM               15
 
 // Palette IDs
 #define BOSS_BLIND_PRIMARY_PID               1
@@ -4022,7 +4020,7 @@ static void game_shop_outro()
         memset16(&se_mat[MAIN_BG_SBB][y - 1][8], SE_HFLIP | 0x0001, 1);
     }
 
-    if (timer >= MENU_POP_OUT_ANIM_FRAMES)
+    if (timer >= TM_MENU_POP_OUT_ANIM)
     {
         state_info[game_state].substate = GAME_SHOP_MAX; // Go to the next state
         timer = TM_ZERO;                                 // Reset the timer
@@ -4230,7 +4228,7 @@ static void game_blind_select_selected_anim_seq()
             );
         }
     }
-    else if (timer >= MENU_POP_OUT_ANIM_FRAMES)
+    else if (timer >= TM_MENU_POP_OUT_ANIM)
     {
         for (int i = 0; i < BLIND_TYPE_MAX; i++)
         {
@@ -4412,11 +4410,11 @@ static void game_over_anim_frame(void)
 
 static void game_lose_on_update()
 {
-    if (timer < GAME_OVER_ANIM_FRAMES)
+    if (timer < TM_GAME_OVER_ANIM)
     {
         game_over_anim_frame();
     }
-    else if (timer == GAME_OVER_ANIM_FRAMES)
+    else if (timer == TM_GAME_OVER_ANIM)
     {
         tte_printf(
             "#{P:%d,%d; cx:0x%X000}GAME OVER",
@@ -4484,11 +4482,11 @@ static void game_over_on_exit()
 
 static void game_win_on_update()
 {
-    if (timer < GAME_OVER_ANIM_FRAMES)
+    if (timer < TM_GAME_OVER_ANIM)
     {
         game_over_anim_frame();
     }
-    else if (timer == GAME_OVER_ANIM_FRAMES)
+    else if (timer == TM_GAME_OVER_ANIM)
     {
         tte_printf(
             "#{P:%d,%d; cx:0x%X000}YOU WIN",
